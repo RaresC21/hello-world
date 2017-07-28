@@ -1,146 +1,283 @@
-<?xml version="1.0"?>
-<!-- Copyright (C) 2014 Wikimedia Foundation Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-  use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
-  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS 
-  IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language 
-  governing permissions and limitations under the License. -->
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC
-    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
-    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+    "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<!-- This is a checkstyle configuration file. For descriptions of
+what the following rules do, please see the checkstyle configuration
+page at http://checkstyle.sourceforge.net/config.html -->
+
+<!-- Checks with numbered comments refer to recommendations made
+by Joshua Bloch in his book Effective Java -->
 
 <module name="Checker">
-  <module name="SuppressWarningsFilter" />
-  <module name="SuppressionFilter">
-    <!-- Suppresses some checks for tests. -->
-    <property name="file" value="${checkstyle.suppressions}" />
-  </module>
-  <module name="TreeWalker">
-    <module name="SuppressWarningsHolder" />
-    <!-- Javadoc -->
-    <module name="JavadocType" />
-    <module name="JavadocMethod">
-      <property name="allowUndeclaredRTE" value="true" /> <!-- You aren't supposed to declare these anyway... -->
-      <property name="allowMissingReturnTag" value="true" /> <!-- Sometimes its just overkill -->
-      <property name="allowMissingParamTags" value="true" /> <!-- Sometimes its just overkill -->
-      <property name="tokens" value="METHOD_DEF" /> <!-- Constructors don't always need Javadoc -->
-    </module>
-    <module name="JavadocStyle" />
-    <module name="JavadocVariable">
-      <property name="ignoreNamePattern" value="log|serialVersionUID" /> <!-- These are obvious. -->
-    </module>
-
-
-    <!-- Formatting -->
-    <module name="Indentation">
-      <property name="basicOffset" value="4" />
-      <property name="caseIndent" value="0" />
-    </module>
-    <module name="LineLength">
-      <property name="max" value="160" />
-    </module>
-    <module name="MethodParamPad" />
-    <module name="NoWhitespaceAfter" />
-    <module name="NoWhitespaceBefore" />
-    <module name="ParenPad" />
-    <module name="TypecastParenPad">
-      <property name="option" value="nospace" />
-    </module>
-    <module name="WhitespaceAfter">
-      <property name="tokens" value="COMMA, SEMI" /> <!-- not typecasts -->
-    </module>
-    <module name="WhitespaceAround">
-      <property name="allowEmptyConstructors" value="true" />
-      <property name="allowEmptyMethods" value="true" />
-      <property name="allowEmptyTypes" value="true" />
-      <property name="allowEmptyLoops" value="true" />
-    </module>
-    <module name="ModifierOrder" />
-    <module name="RedundantModifier" />
-    <module name="EmptyBlock">
-      <!-- Put a comment in it if you need one explaining why -->
-      <property name="option" value="text" />
-    </module>
-    <module name="LeftCurly">
-      <property name="maxLineLength" value="120" />
-    </module>
-    <module name="RightCurly" />
-    <module name="AvoidNestedBlocks">
-      <property name="allowInSwitchCase" value="true" />
-    </module>
-    <module name="EmptyStatement" />
-    <module name="UpperEll" /> <!-- Lowercase l is hard to read -->
-    <module name="ArrayTypeStyle" />
-
-
-    <!-- Naming conventions -->
-    <module name="PackageName">
-      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$" />
-    </module>
-    <module name="TypeName" />
-    <module name="ConstantName">
-      <!-- Allow "log". There might be other non-constant static finals but they should be rare enough we can just list them 
-        here when they come up. -->
-      <property name="format" value="^([A-Z][A-Z0-9]*(_[A-Z0-9]+)*|log)$" />
-    </module>
-    <module name="MemberName" />
-    <module name="LocalFinalVariableName" />
-    <module name="LocalVariableName" />
-    <module name="ParameterName" />
-    <module name="StaticVariableName" />
-    <module name="UnnecessaryParentheses" />
-    <module name="PackageDeclaration" />
-
-
-    <!-- Import -->
-    <module name="AvoidStarImport" />
-    <module name="IllegalImport" />
-    <module name="RedundantImport" />
-    <module name="UnusedImports" />
-
-
-    <!-- Common coding problems/opinionates stuff -->
-    <module name="CovariantEquals" />
-    <module name="EqualsHashCode" />
-    <module name="InnerAssignment" /> <!-- Too suprising -->
-    <module name="MissingSwitchDefault" /> <!-- Just comment that its a noop if its a noop -->
-    <module name="ModifiedControlVariable" />
-    <module name="SimplifyBooleanExpression" />
-    <module name="SimplifyBooleanReturn" />
-    <module name="StringLiteralEquality" />
-    <module name="SuperClone" />
-    <module name="SuperFinalize" />
-    <module name="IllegalCatch" />
-    <module name="IllegalThrows" />
-    <module name="ExplicitInitialization" /> <!-- May as well let Java do what its going to do -->
-    <module name="DefaultComesLast" />
-    <module name="FallThrough" />
-    <module name="MultipleVariableDeclarations" />
-    <module name="VisibilityModifier" /> <!-- May as well follow standard Java style here -->
-    <module name="FinalClass" />
-    <module name="HideUtilityClassConstructor" />
-    <!-- This one usually offers good to interesting suggestions but its too much work to implement now. <module name="DesignForExtension"/> -->
-    <module name="MutableException" />
-    <module name="UncommentedMain">
-      <property name="excludedClasses" value="org\.wikidata\.query\.rdf\.tool\..*" />
-    </module>
-
-
-    <!-- Really opinionated. Probably wrong. -->
-    <module name="ClassFanOutComplexity" />
-    <module name="CyclomaticComplexity" />
-    <module name="NPathComplexity" />
-
-    <!-- These are explicitly ok -->
-    <!-- <module name="ParameterAssignment"/> Usually used when munging parameters. Fine. -->
-    <!-- <module name="TrailingComment"/> -->
-    <!-- <module name="HiddenField"/> It turns out that we do this all the time in setters and constructors. -->
-    <!-- <module name="ImportOrder"> Its just not worth trying to get imports to line up. -->
+  <!-- java file header needs to contain the license -->
+  <module name="RegexpHeader">
+    <!-- This file makes minimal use of regular expression; only the year of
+         the copy right date has any flexibility outside a strict character-by
+         character direct match. -->
+    <property name="headerFile" value="${checkstyle.header.file}"/>
+    <property name="fileExtensions" value="java"/>
   </module>
 
-  <!-- More formatting stuff that can't be in TreeWalker -->
-  <module name="NewlineAtEndOfFile" />
+  <!-- Allows us to turn off check style for a certain line -->
+  <module name="SuppressionCommentFilter"/>
+
+  <!-- property name="charset" value="UTF-8"/ -->
+  <module name="FileTabCharacter">
+    <!-- Checks that there are no tab characters in the file.
+    -->
+  </module>
+
   <module name="RegexpSingleline">
-    <property name="format" value="\s+$" />
-    <property name="message" value="Line has trailing spaces." />
+    <!-- Checks that FIXME is not used in comments.  TODO is preferred.
+    -->
+    <property name="format" value="((//.*)|(\*.*))FIXME" />
+    <property name="message" value='TODO is preferred to FIXME.  e.g. "TODO(johndoe): Refactor when v2 is released."' />
+  </module>
+
+  <module name="RegexpSingleline">
+    <!-- Checks that TODOs are properly formatted.
+
+         The (?&lt;!TODO\(.{0,100}) makes the regex ignore any secondary TODO's on the line
+         so that things like //TODO(bob): remove this TODO on 1/1/2020 don't trigger a warning
+         because of the second TODO.  (The {0,100} is because java doesn't recoginize arbitrary
+         length look backs, but we know each java line should be < 100 chars.)
+    -->
+    <property name="format" value="((//.*)|(\*.*))(?&lt;!TODO\(.{0,100})(TODO[^(])|(TODO\([^)]*$)" />
+    <property name="message" value='All TODOs should be named.  e.g. "TODO(johndoe): Refactor when v2 is released."' />
+  </module>
+
+
+  <!-- All Java AST specific tests live under TreeWalker module. -->
+  <module name="TreeWalker">
+
+    <!-- Allows us to turn off check style for a certain line -->
+    <module name="FileContentsHolder"/>
+    <!--
+
+    IMPORT CHECKS
+
+    -->
+
+    <module name="RedundantImport">
+      <!-- Checks for redundant import statements. -->
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name="UnusedImports">
+      <!-- Checks for unused import statements. -->
+      <!-- DPL is a notable violator of this rule. -->
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name="ImportOrder">
+      <!-- Checks for out of order import statements. -->
+      <property name="groups" value="/^javax?\./,org"/>
+      <property name="ordered" value="true"/>
+      <property name="separated" value="true"/>
+      <property name="option" value="above"/>
+    </module>
+
+    <!--
+
+    JAVADOC CHECKS
+
+    -->
+
+    <module name="JavadocType">
+      <!-- Item 28 - Write doc comments for all exposed API elements. -->
+      <!-- Ensure all classes with visability greater than or equal to
+        protected have class level documentation. -->
+      <property name="scope" value="protected"/>
+      <property name="severity" value="error"/>
+    </module>
+
+    <!--
+
+    NAMING CHECKS
+
+    -->
+
+    <!-- Item 38 - Adhere to generally accepted naming conventions -->
+
+    <module name="PackageName">
+      <!-- Validates identifiers for package names against the
+        supplied expression. -->
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
+      <property name="severity" value="warning"/>
+    </module>
+
+    <module name="TypeNameCheck">
+      <!-- Validates static, final fields against the
+      expression "^[A-Z][a-zA-Z0-9]*$". -->
+      <metadata name="altname" value="TypeName"/>
+      <property name="severity" value="warning"/>
+    </module>
+
+    <module name="ParameterName">
+      <!-- Validates identifiers for method parameters against the
+        expression "^[a-z][a-zA-Z0-9]*$". -->
+      <property name="severity" value="warning"/>
+    </module>
+
+    <module name="LocalFinalVariableName">
+      <!-- Validates identifiers for local final variables against the
+        expression "^[a-z][a-zA-Z0-9]*$". -->
+      <property name="severity" value="warning"/>
+    </module>
+
+    <module name="LocalVariableName">
+      <!-- Validates identifiers for local variables against the
+        expression "^[a-z][a-zA-Z0-9]*$". -->
+      <property name="severity" value="warning"/>
+    </module>
+
+
+    <!--
+
+    LENGTH and CODING CHECKS
+
+    -->
+
+    <module name="LineLength">
+      <!-- Checks if a line is too long. -->
+      <property name="max" value="${com.puppycrawl.tools.checkstyle.checks.sizes.LineLength.max}" default="80"/>
+      <property name="severity" value="error"/>
+
+      <!--
+        The default ignore pattern exempts the following elements:
+          - import statements
+          - long URLs inside comments
+      -->
+
+      <property name="ignorePattern"
+          value="${com.puppycrawl.tools.checkstyle.checks.sizes.LineLength.ignorePattern}"
+          default="^(package .*;\s*)|(import .*;\s*)|( *\* *https?://.*)|(\s*@[\w\.\$]+::\w+(?:\([^\(]*\)|\(\)\(\))?[,;]?)|(\s+\* \{@(link|see) [^\s][^\}]*\})$"/>
+    </module>
+
+    <module name="LeftCurly">
+      <!-- Checks for placement of the left curly brace ('{'). -->
+      <property name="severity" value="warning"/>
+    </module>
+
+    <module name="RightCurly">
+      <!-- Checks right curlies on CATCH, ELSE, and TRY blocks are on
+      the same line. e.g., the following example is fine:
+      <pre>
+        if {
+          ...
+        } else
+      </pre>
+      -->
+      <!-- This next example is not fine:
+      <pre>
+        if {
+          ...
+        }
+        else
+      </pre>
+      -->
+      <property name="option" value="same"/>
+      <property name="severity" value="warning"/>
+    </module>
+
+    <!-- Checks for braces around if and else blocks -->
+    <module name="NeedBraces">
+      <property name="severity" value="warning"/>
+      <property name="tokens" value="LITERAL_IF, LITERAL_ELSE, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO"/>
+    </module>
+
+    <module name="UpperEll">
+      <!-- Checks that long constants are defined with an upper ell.-->
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name="FallThrough">
+      <!-- Warn about falling through to the next case statement.  Similar to
+      javac -Xlint:fallthrough, but the check is suppressed if a single-line comment
+      on the last non-blank line preceding the fallen-into case contains 'fall through' (or
+      some other variants which we don't publicized to promote consistency).
+      -->
+      <property name="reliefPattern"
+       value="fall through|Fall through|fallthru|Fallthru|falls through|Falls through|fallthrough|Fallthrough|No break|NO break|no break|continue on"/>
+      <property name="severity" value="error"/>
+    </module>
+
+
+    <!--
+
+    MODIFIERS CHECKS
+
+    -->
+
+    <module name="ModifierOrder">
+      <!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and
+           8.4.3.  The prescribed order is:
+           public, protected, private, abstract, static, final, transient, volatile,
+           synchronized, native, strictfp
+        -->
+    </module>
+
+
+    <!--
+
+    WHITESPACE CHECKS
+
+    -->
+
+    <module name="WhitespaceAround">
+      <!-- Checks that various tokens are surrounded by whitespace.
+           This includes most binary operators and keywords followed
+           by regular or curly braces.
+      -->
+      <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR,
+        BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN,
+        EQUAL, GE, GT, LAND, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE,
+        LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN,
+        LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS,
+        MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION,
+        SL, SL_ASSIGN, SR_ASSIGN, STAR, STAR_ASSIGN"/>
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name="WhitespaceAfter">
+      <!-- Checks that commas, semicolons and typecasts are followed by
+           whitespace.
+      -->
+      <property name="tokens" value="COMMA, SEMI, TYPECAST"/>
+    </module>
+
+    <module name="NoWhitespaceAfter">
+      <!-- Checks that there is no whitespace after various unary operators.
+           Linebreaks are allowed.
+      -->
+      <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
+        UNARY_PLUS"/>
+      <property name="allowLineBreaks" value="true"/>
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name="NoWhitespaceBefore">
+      <!-- Checks that there is no whitespace before various unary operators.
+           Linebreaks are allowed.
+      -->
+      <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
+      <property name="allowLineBreaks" value="true"/>
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name="ParenPad">
+      <!-- Checks that there is no whitespace before close parens or after
+           open parens.
+      -->
+      <property name="severity" value="warning"/>
+    </module>
+
+    <!--
+
+    MISC CHECKS
+
+    -->
   </module>
 </module>
