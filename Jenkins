@@ -1,3 +1,4 @@
+/*
 node {
 	stage ('checkout') {
 		checkout scm
@@ -11,7 +12,8 @@ node {
 	}
 	
 }
-/*
+*/
+
 pipeline {
 	agent any
 	
@@ -21,9 +23,8 @@ pipeline {
 
 			steps {				
 				warnings consoleParsers: [[parserName: 'Java Compiler (javac)']], unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
-				//checkstyle pattern: 'checkstyle.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+				checkstyle pattern: 'checkstyle.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
 			}
 		}
 	}
 }
-*/
