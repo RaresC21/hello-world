@@ -1,0 +1,16 @@
+
+pipeline {
+	agent any
+	
+	stages {
+		stage('apply analysis plugins') {
+			checkstyle 
+				pattern: 'checkstyle.xml', 
+				unstableTotalAll:'0',
+				failedTotalAll: '20'
+				unhealthy:'100', 
+				healthy:'100'
+
+		}
+	}
+}
