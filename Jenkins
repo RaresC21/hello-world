@@ -5,7 +5,7 @@ pipeline {
 	stages {
 		stage('apply analysis plugins') {
 			steps {
-				checkstyle pattern: 'checkstyle.xml', unstableTotalAll:'0', failedTotalAll: '20', unhealthy:'100', healthy:'100'
+				checkstyle pattern: 'checkstyle.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
 			}
 		}
 	}
