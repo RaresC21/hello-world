@@ -1,9 +1,9 @@
 node {
-	stage "Checkout"
-		checkout scm 
+	stage 'Checkout'
+	checkout scm
 		
-	stage "apply analysis plugins"
-		[$class: 'WarningsPublisher', parserConfigurations: [[parserName: 'Java Compiler (javac)']], unstableTotalAll: '0', usePreviousBuildAsReference: true]
+	stage 'apply analysis plugins'
+	[$class: 'WarningsPublisher', parserConfigurations: [[parserName: 'Java Compiler (javac)']], unstableTotalAll: '0', usePreviousBuildAsReference: true]
 }
 
 /*
