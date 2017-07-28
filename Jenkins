@@ -4,8 +4,9 @@ node {
 	}
 	
 	stage ('analysis') {
+		sh 'ls'
 		[$class: 'WarningsPublisher', parserConfigurations: [[parserName: 'Java Compiler (javac)']], unstableTotalAll: '0', usePreviousBuildAsReference: true]
-		[$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0',unhealthy:'100', healthy:'100']
+		[$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/checkstyle.xml', unstableTotalAll:'0',unhealthy:'100', healthy:'100']
 	}
 	
 }
