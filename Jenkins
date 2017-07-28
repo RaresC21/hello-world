@@ -1,14 +1,15 @@
 import groovy.json.JsonSlurper
 
-def inputFile = new File('test.json')
-def inputJSON = new JsonSlurper().parse(inputFile)
-
 pipeline {
 	agent any
 	
 	stages {
 		stage('apply analysis plugins') {
 			steps {
+				
+				def inputFile = new File('test.json')
+				def inputJSON = new JsonSlurper().parse(inputFile)
+				
 				checkstyle pattern: 'checkstyle-result.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
 
 				pmd pattern: 'pmd.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
