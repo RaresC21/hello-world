@@ -4,14 +4,14 @@ pipeline {
 	
 	stages {
 		stage('apply analysis plugins') {
-		step([
+		steps { [
         		$class                     : 'WarningsPublisher',
        			parserConfigurations       : [[
                                               			parserName: 'Java Compiler (javac)',
                                      		     ]],
        			unstableTotalAll           : '0',
        			usePreviousBuildAsReference: true
-])
+]}
 			//steps {
 				//warnings consoleParsers: [[parserName: 'Java Compiler (javac)']], unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
 				//checkstyle pattern: 'checkstyle.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
