@@ -1,5 +1,8 @@
 import groovy.json.JsonSlurper
 
+def inputFile = new File('test.json')
+def inputJSON = new JsonSlurper().parse(inputFile)
+
 pipeline {
 	agent any
 	
