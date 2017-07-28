@@ -7,7 +7,7 @@ node {
 		sh 'javac HelloWorld.java'
 		sh 'java HelloWorld'
 		step([$class: 'WarningsPublisher', parserConfigurations: [[parserName: 'Java Compiler (javac)']], unstableTotalAll: '0', usePreviousBuildAsReference: true])
-		step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'checkstyle.xml', unstableTotalAll:'0',unhealthy:'100', healthy:'100'])
+		step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'checkstyle-results.xml', unstableTotalAll:'0',unhealthy:'100', healthy:'100'])
 	}
 	
 }
