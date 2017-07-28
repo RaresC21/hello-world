@@ -1,16 +1,17 @@
 
 pipeline {
-	agent any
 	
 	environment {			
-		healty = "10"
-		unHealthy = "100"
+		HEALTHY = "100"
+		UNHEALTHY = "100"
 	}
+
+	agent any
 	
 	stages {
 		stage('apply analysis plugins') {
 			steps {				
-				checkstyle pattern: 'checkstyle-result.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:"$unHealthy", healthy:"$healthy"
+				checkstyle pattern: 'checkstyle-result.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:"$UNHEALTHY", healthy:"$HEALTHY"
 
 				pmd pattern: 'pmd.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
 
