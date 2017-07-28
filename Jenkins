@@ -1,29 +1,21 @@
-/*
-node {
-	stage ('checkout') {
-		checkout scm
-	}
-	
-	stage ('analysis') {
-		sh 'javac HelloWorld.java'
-		sh 'java HelloWorld'
-		step([$class: 'WarningsPublisher', parserConfigurations: [[parserName: 'Java Compiler (javac)']], unstableTotalAll: '0', usePreviousBuildAsReference: true])
-		step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: 'checkstyle-results.xml', unstableTotalAll:'0',unhealthy:'100', healthy:'100'])
-	}
-	
-}
-*/
 
 pipeline {
 	agent any
 	
 	stages {
 		stage('apply analysis plugins') {
-			//[$class: 'WarningsPublisher', parserConfigurations: [[parserName: 'Java Compiler (javac)']], unstableTotalAll: '0', usePreviousBuildAsReference: true]
+			steps {
+				checkstyle pattern: 'checkstyle-result.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
 
-			steps {				
-				warnings consoleParsers: [[parserName: 'Java Compiler (javac)']], unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
-				checkstyle pattern: 'checkstyle.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+				pmd pattern: 'pmd.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+
+				findbugs pattern: 'findbugs.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+
+				dry pattern: 'pmd.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+				
+				androidLint pattern: 'lint-results.xml', unstableTotalAll: '10', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+
+			 	warnings consoleParsers: [[parserName: 'Java Compiler (javac)']], unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
 			}
 		}
 	}
