@@ -4,12 +4,15 @@ import groovy.json.JsonSlurper
 pipeline {
 	agent any
 	
+	environment {			
+		inputFile = new File('test.json')
+		inputJSON = new JsonSlurper().parse(inputFile)	
+	}
+	
 	stages {
 		stage('apply analysis plugins') {
 			steps {
-				
-				def inputFile = new File('test.json')
-				def inputJSON = new JsonSlurper().parse(inputFile)
+				sh 'ehco inputJSON'
 				
 				checkstyle pattern: 'checkstyle-result.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
 
