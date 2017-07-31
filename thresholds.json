@@ -1,0 +1,34 @@
+{
+	"findBugs": {
+		"unstable": 2,
+		"failed": 4
+	},
+	"checkstyle": {
+		"unstable": 2,
+		"failed": 4
+	},
+	"pmd": {
+		"unstable": 2,
+		"failed": 4
+	},
+	"warnings": {
+		"unstable": 2,
+		"failed": 4
+	},
+	"tasks": {
+		"unstable": 2,
+		"failed": 4
+	},
+	"dry": {
+		"unstable": 2,
+		"failed": 4
+	},
+	"scanTasks": {
+		"unstable": 2,
+		"failed": 4
+	},
+	"overall": {
+		"unstable": 2,
+		"failed": 4
+	}
+}

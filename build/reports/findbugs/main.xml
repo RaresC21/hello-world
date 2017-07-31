@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.0.1" sequence="0" timestamp="1501514029960" analysisTimestamp="1501514029974" release="">
+  <Project projectName="">
+    <Jar>/home/rares/Documents/hello-world/build/classes/java/main</Jar>
+    <SrcDir>/home/rares/Documents/hello-world/src/main/java/rares/HelloWorld.java</SrcDir>
+  </Project>
+  <BugInstance type="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT" priority="2" rank="17" abbrev="RV" category="STYLE">
+    <Class classname="rares.HelloWorld">
+      <SourceLine classname="rares.HelloWorld" start="5" end="13" sourcefile="HelloWorld.java" sourcepath="rares/HelloWorld.java"/>
+    </Class>
+    <Method classname="rares.HelloWorld" name="main" signature="([Ljava/lang/String;)V" isStatic="true">
+      <SourceLine classname="rares.HelloWorld" start="7" end="11" startBytecode="0" endBytecode="62" sourcefile="HelloWorld.java" sourcepath="rares/HelloWorld.java"/>
+    </Method>
+    <Method classname="rares.HelloWorld" name="func" signature="()I" isStatic="true" role="METHOD_CALLED">
+      <SourceLine classname="rares.HelloWorld" start="13" end="13" startBytecode="0" endBytecode="25" sourcefile="HelloWorld.java" sourcepath="rares/HelloWorld.java"/>
+    </Method>
+    <SourceLine classname="rares.HelloWorld" start="10" end="10" startBytecode="8" endBytecode="8" sourcefile="HelloWorld.java" sourcepath="rares/HelloWorld.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Mon, 31 Jul 2017 11:13:49 -0400" total_classes="1" referenced_classes="12" total_bugs="1" total_size="9" num_packages="1" java_version="1.8.0_144" vm_version="25.144-b01" cpu_seconds="3.56" clock_seconds="0.80" peak_mbytes="105.46" alloc_mbytes="3516.50" gc_seconds="0.04" priority_2="1">
+    <PackageStats package="rares" total_bugs="1" total_types="1" total_size="9" priority_2="1">
+      <ClassStats class="rares.HelloWorld" sourceFile="HelloWorld.java" interface="false" size="9" bugs="1" priority_2="1"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="144" invocations="328" avgMicrosecondsPerInvocation="439" maxMicrosecondsPerInvocation="11345" standardDeviationMircosecondsPerInvocation="986"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="39" invocations="12" avgMicrosecondsPerInvocation="3286" maxMicrosecondsPerInvocation="10185" standardDeviationMircosecondsPerInvocation="3866"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="34" invocations="12" avgMicrosecondsPerInvocation="2872" maxMicrosecondsPerInvocation="21780" standardDeviationMircosecondsPerInvocation="5969"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="29" invocations="61" avgMicrosecondsPerInvocation="488" maxMicrosecondsPerInvocation="2772" standardDeviationMircosecondsPerInvocation="556"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="26" invocations="296" avgMicrosecondsPerInvocation="89" maxMicrosecondsPerInvocation="1061" standardDeviationMircosecondsPerInvocation="151"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="25" invocations="329" avgMicrosecondsPerInvocation="78" maxMicrosecondsPerInvocation="572" standardDeviationMircosecondsPerInvocation="45"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="25" invocations="3" avgMicrosecondsPerInvocation="8553" maxMicrosecondsPerInvocation="25149" standardDeviationMircosecondsPerInvocation="11736"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="24" invocations="12" avgMicrosecondsPerInvocation="2074" maxMicrosecondsPerInvocation="7693" standardDeviationMircosecondsPerInvocation="2293"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="19" invocations="27" avgMicrosecondsPerInvocation="740" maxMicrosecondsPerInvocation="10960" standardDeviationMircosecondsPerInvocation="2095"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="15" invocations="12" avgMicrosecondsPerInvocation="1333" maxMicrosecondsPerInvocation="5539" standardDeviationMircosecondsPerInvocation="1663"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="14" invocations="12" avgMicrosecondsPerInvocation="1176" maxMicrosecondsPerInvocation="4990" standardDeviationMircosecondsPerInvocation="1508"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="13" invocations="12" avgMicrosecondsPerInvocation="1131" maxMicrosecondsPerInvocation="7467" standardDeviationMircosecondsPerInvocation="2013"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>

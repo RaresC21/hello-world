@@ -1,28 +1,53 @@
 
-pipeline {
-	
-	environment {			
-		HEALTHY = "100"
-		UNHEALTHY = "100"
-	}
+node {
+    stage("checkout") {
+        checkout scm
+    }
 
-	agent any
-	
-	stages {
-		stage('apply analysis plugins') {
-			steps {				
-				checkstyle pattern: 'checkstyle-result.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:"$UNHEALTHY", healthy:"$HEALTHY"
+    stage("build") {
+        sh './gradlew build'
+    }
 
-				pmd pattern: 'pmd.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+    stage("Analyse Results") {
+        def thresholds = readJSON file: "thresholds.json"
 
-				findbugs pattern: 'findbugs.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+        // findbugs
+        step([$class: 'FindBugsPublisher', pattern: '**/findbugs/main.xml',
+                    unstableTotalAll: "${thresholds.findBugs['unstable']}",
+                    failedTotalALl: "${thresholds.findBugs['failed']}"])
 
-				dry pattern: 'pmd.xml', unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
-				
-				androidLint pattern: 'lint-results.xml', unstableTotalAll: '10', failedTotalAll: '20', unHealthy:'100', healthy:'100'
+        // checkstyle
+        step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/checkstyle/main.xml',
+                    unstableTotalAll: "${thresholds.checkstyle['unstable']}",
+                    failedTotalALl: "${thresholds.checkstyle['failed']}"])
 
-			 	warnings consoleParsers: [[parserName: 'Java Compiler (javac)']], unstableTotalAll:'0', failedTotalAll: '20', unHealthy:'100', healthy:'100'
-			}
-		}
-	}
+        // pmd
+        step([$class: 'PmdPublisher', pattern: '**/pmd/main.xml',
+                    unstableTotalAll: "${thresholds.pmd['unstable']}",
+                    failedTotalALl: "${thresholds.pmd['failed']}"])
+
+        // dry
+        step([$class: 'DryPublisher', pattern: '**/dry/main.xml',
+                    high: "TODO",
+                    unstableTotalAll: "${thresholds.dry['unstable']}",
+                    failedTotalALl: "${thresholds.dry['failed']}"])
+
+        // scan open tasks
+        step([$class: 'TasksPublisher', pattern: "**/*.java",
+                    unstableTotalAll: "${thresholds.scanTasks['unstable']}",
+                    failedTotalALl: "${thresholds.scanTasks['failed']}"])
+
+        // warnings
+        step([$class: 'WarningsPublisher', parserConfigurations:[[
+                                                                  parserName: 'Java Compiler (javac)',
+                                                                  pattern: "**/warnings-file"
+                                                                ]],
+                    unstableTotalAll: "${thresholds.warnings['unstable']}",
+                    failedTotalALl: "${thresholds.warnings['failed']}"])
+
+        // overall threshold
+        step([$class: 'hudson.plugins.analysis.collector.AnalysisPublisher',
+                    unstableTotalAll: "${thresholds.overall['unstable']}",
+                    failedTotalALl: "${thresholds.overall['failed']}"])
+    }
 }

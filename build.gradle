@@ -1,0 +1,39 @@
+
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+
+sourceCompatibility = 1.7
+
+checkstyle {
+  	project.ext.checkstyleVersion = '8.1'
+
+  	repositories {
+	    mavenCentral()
+  	}
+
+  	configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+
+  	checkstyleMain {
+    	source = sourceSets.main.allSource
+  	}
+
+  	ignoreFailures = true
+
+  	configurations {
+	    checkstyle
+  	}
+
+  	dependencies{
+	    assert project.hasProperty("checkstyleVersion")
+  	}
+}
+
+
+tasks.withType(FindBugs){
+    ignoreFailures = true
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.0.2'
+}
